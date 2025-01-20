@@ -85,6 +85,11 @@ const ShopButton = styled(Link)`
     position: absolute;
     top: 100%;
     animation: ${slideUp} 1s ease-in-out forwards 500ms;
+    transition: background 150ms ease-in-out;
+
+    &:hover {
+    background-color: hsl(207, 80.40%, 70.00%);
+    }
 `;
 
 const Homepage = () => {

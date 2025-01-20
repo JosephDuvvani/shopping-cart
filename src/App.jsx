@@ -13,11 +13,12 @@ const HeaderMain = styled.div`
 const Header = styled.header`
     padding: 1rem 2rem;
     color: #fff;
-    background-color: #000;
+    background-color: hsl(290, 40%, 30%);
 `;
 
 const Main = styled.main`
-    overflow: clip;   
+    overflow: clip;
+    background-color: hsl(240, 40%, 98%);
 `;
 
 const StyledNav = styled.nav`
@@ -45,17 +46,29 @@ const NavList = styled.ul`
 const StyledLink = styled(Link)`
     text-decoration: none;
     color: inherit;
+    padding: .5em;
+    display: block;
+    transition: all 150ms ease-in-out;
+
+    &:hover {
+        transform: scale(1.3);
+        letter-spacing: 0;
+    }
 `;
 
-const Logo = styled(StyledLink)`
+const Logo = styled(Link)`
     font-size: 2rem;
     font-family: "Roboto", Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: inherit;
 `;
 
-const CartLink = styled(StyledLink)`
+const CartLink = styled(Link)`
     display: grid;
     place-items: center;
     position: relative;
+    text-decoration: none;
+    color: inherit;
 `;
 
 const CartIcon = styled.svg`
@@ -67,8 +80,8 @@ const CartNumber = styled.div`
     position: absolute;
     top: -50%;
     right: -50%;
-    width: 1.3rem;
-    height: 1.3rem;
+    min-width: 1.3rem;
+    min-height: 1.3rem;
     color: hsl(130, 90%, 95%);
     background-color: hsl(130, 50%, 50%);
     border-radius: 100vh;

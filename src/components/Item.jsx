@@ -8,7 +8,10 @@ const Wrapper = styled.div`
     grid-template-rows: repeat(3, min-content);
     place-items: center start;
     gap: 1rem; 
-    padding: 0;
+    padding: 1em .5em;
+    background-color: hsl(0, 0%, 100%);
+    border-radius: 8px;
+    box-shadow: 0 0 4px hsl(0, 0%, 0%, 0.1);
 `;
 const ImageFrame = styled.div`
     display: grid;
@@ -16,7 +19,6 @@ const ImageFrame = styled.div`
     width: 10rem;
     height: 10rem;
     background-color: hsl(250, 70%, 90%);
-    border-radius: 1rem;
     overflow: hidden;
     grid-row: 1/4;
 `;
@@ -53,6 +55,9 @@ const MinusButton = styled.button`
     background-color: transparent;
     border: 0;
     cursor: pointer;
+
+    &:hover svg {
+    fill: hsl(30, 35%, 65%);
 `;
 const PlusButton = styled(MinusButton)`
 
@@ -61,6 +66,7 @@ const ButtonIcon = styled.svg`
     width: 70%;
     fill: var(--clr-font);
     pointer-events: none;
+    transition: fill 200ms ease-in-out;
 `;
 const QuantValue = styled.div`
     display: grid;
@@ -82,6 +88,11 @@ const RemoveButton = styled.button`
     color: white;
     background-color: hsl(200, 79.70%, 30%);
     cursor: pointer;
+    transition: background 150ms ease-in-out;
+
+    &:hover {
+    background-color: hsl(200, 80%, 40%);
+    }
 `;
 
 const Item = ({product}) => {

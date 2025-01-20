@@ -10,6 +10,11 @@ const Wrapper = styled.div`
     padding: 2rem;
     font-family: "Roboto", Arial, Helvetica, sans-serif;
 `;
+const Line = styled.div`
+    height: 1px;
+    background-color: hsl(0, 0%, 80%);
+    margin-inline: .5em;
+`;
 const Title = styled.h1`
     margin-top: 0;
 `;
@@ -19,6 +24,7 @@ const Products = () => {
     return (
         <Wrapper>
             <Title>Product List</Title>
+            <Line />
             <ProductCards products={products} />
         </Wrapper>
     )

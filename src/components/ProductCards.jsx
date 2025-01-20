@@ -6,7 +6,8 @@ const List = styled.ul`
     display: grid;
     grid-template-columns: repeat(auto-fit, 16rem);
     gap: 3rem 2rem;
-    list-style: none;  
+    list-style: none;
+    color: hsl(0, 0%, 30%);
     padding: 0;
 `;
 const Card = styled.div`
@@ -42,10 +43,15 @@ const CartButton = styled.button`
     place-items: center;
     width: 2.5rem;
     height: 2.5rem;
-    background-color: hsl(250, 70%, 50%);
+    background-color: hsl(20, 70%, 50%);
     border: 0;
     border-radius: .5rem;
     cursor: pointer;
+    transition: background 150ms ease-in-out;
+
+    &:hover {
+    background-color: hsl(20, 70%, 60%);
+    }
 `;
 const CartIcon = styled.svg`
     width: 80%;
