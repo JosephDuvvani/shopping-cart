@@ -39,9 +39,10 @@ const Quantity = styled.div`
     font-size: 1.2em;
     display: grid;
     grid-template-columns: 1.3em 2px 1.3em 2px 1.3em;
-    grid-template-rows: 1.3em;
+    grid-template-rows: 1.5em;
     border: 2px solid var(--clr-border);
     border-radius: 6px;
+    position: relative;
 `;
 const MinusButton = styled.button`
     width: 100%;
@@ -61,22 +62,12 @@ const ButtonIcon = styled.svg`
     fill: var(--clr-font);
     pointer-events: none;
 `;
-const Input = styled.input`
+const QuantValue = styled.div`
+    display: grid;
+    place-items: center;
     width: 100%;
-    text-align: center;
-    color: var(--clr-font);
-    outline: none;
-    border: 0;
-    box-sizing: border-box;
-
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-    &[type=number] {
-        -moz-appearance: textfield;
-    }
+    height: 100%;
+    font-size: .8em;
 `;
 const Line = styled.div`
     width: 2px;
@@ -128,12 +119,17 @@ const Item = ({product}) => {
             <Price>Price: ${product.item.price}</Price>
             <Quantity>
                 <MinusButton name="minus" onClick={handleQuantity}>
-                    <ButtonIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M19,13H5V11H19V13Z" />
-                    </ButtonIcon>
+                    {product.quantity === 1 ?
+                        <ButtonIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                        </ButtonIcon> :
+                        <ButtonIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19,13H5V11H19V13Z" />
+                        </ButtonIcon>
+                    }
                 </MinusButton>
                 <Line />
-                <Input type="number" value={product.quantity} />
+                <QuantValue>{product.quantity}</QuantValue>            
                 <Line />
                 <PlusButton name="plus" onClick={handleQuantity}>
                     <ButtonIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
