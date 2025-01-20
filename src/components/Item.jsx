@@ -1,4 +1,6 @@
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { CartContext } from "../App";
 
 const Wrapper = styled.div`
     display: grid;
@@ -91,7 +93,32 @@ const RemoveButton = styled.button`
     cursor: pointer;
 `;
 
-const Item = ({product, setProduct}) => {
+const Item = ({product}) => {
+    const {cart, setCart} = useContext(CartContext);
+
+    const handleQuantity = (e) => {
+        if (e.target.name !== 'plus' && e.target.name !== 'minus') 
+            throw new Error("e.target.name does not match 'plus' or 'minus'");
+        
+        const newProduct = e.target.name === 'plus' ?
+            {...product, quantity: (product.quantity + 1)} :
+            {...product, quantity: (product.quantity - 1)};
+
+        const newCart = [...cart].
+            map(prod => 
+                prod.id === product.id ? 
+                    prod = newProduct :
+                    prod 
+            ).filter(prod => prod.quantity > 0);
+
+        setCart(newCart);
+    };
+
+    const handleRemove = () => 
+        setCart([...cart].filter(prod => 
+            prod.id !== product.id
+        ));
+
     return (
         <Wrapper>
             <ImageFrame>
@@ -100,7 +127,7 @@ const Item = ({product, setProduct}) => {
             <Name>{product.item.name}</Name>
             <Price>Price: ${product.item.price}</Price>
             <Quantity>
-                <MinusButton>
+                <MinusButton name="minus" onClick={handleQuantity}>
                     <ButtonIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M19,13H5V11H19V13Z" />
                     </ButtonIcon>
@@ -108,13 +135,15 @@ const Item = ({product, setProduct}) => {
                 <Line />
                 <Input type="number" value={product.quantity} />
                 <Line />
-                <PlusButton>
+                <PlusButton name="plus" onClick={handleQuantity}>
                     <ButtonIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
                     </ButtonIcon>
                 </PlusButton>
             </Quantity>
-            <RemoveButton>Remove</RemoveButton>
+            <RemoveButton onClick={handleRemove}>
+                Remove
+            </RemoveButton>
         </Wrapper>
     );
 };

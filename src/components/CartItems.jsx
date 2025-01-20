@@ -14,7 +14,7 @@ const List = styled.ul`
 `;
 
 const CartItems = () => {
-    const {cart, setCart} = useContext(CartContext);
+    const {cart} = useContext(CartContext);
 
     return (
         <Wrapper>
@@ -23,7 +23,7 @@ const CartItems = () => {
                     cart.length > 0 ?
                         cart.map(product => (
                             <li key={product.id}>
-                                <Item product={product} setProduct={setCart} />
+                                <Item product={product} />
                             </li>
                         )) :
                         <div>Cart Is Empty</div>
