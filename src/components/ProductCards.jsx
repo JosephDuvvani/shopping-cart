@@ -27,7 +27,6 @@ const ImageFrame = styled.div`
 const Image = styled.img`
     width: 100%;
     height: 100%;
-    appearance: none;
 `;
 const Name = styled.h2`
     font-size: 1.2em;
