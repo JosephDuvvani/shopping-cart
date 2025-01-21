@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import CartItems from "../components/CartItems";
+import { useContext, useState } from "react";
+import { CartContext } from "../App";
 
 const Wrapper = styled.div`
     max-width: 70rem;
@@ -16,12 +18,56 @@ const Line = styled.div`
 const Title = styled.h1`
     margin-top: 0;
 `;
+const Checkout = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    padding: .5rem;
+`;
+const Cost = styled.span`
+    color: hsl(150, 90%, 40%);
+    margin-left: .2em;
+`;
+const CheckoutButton = styled.button`
+    font-size: .8em;
+    color: hsl(0, 0%, 100%);
+    background-color: hsl(20, 70%, 50%);
+    padding: .5em 1.5em;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+    background-color: hsl(20, 70%, 60%);
+    }
+`;
 
 const Cart = () => {
+    const {cart, setCart} = useContext(CartContext);
+
+    const handleCheckout = () => setCart([]);
     return (
         <Wrapper>
             <Title>Shopping Cart</Title>
             <Line />
+            {cart.length > 0 &&
+                <Checkout>
+                    <div>
+                        Total:
+                        <Cost>
+                            ${
+                                [...cart].map(prod => 
+                                    prod.item.price * prod.quantity
+                                ).reduce((total, price) => total + price)
+                            }
+                        </Cost>
+                    </div>
+                    <CheckoutButton onClick={handleCheckout}>
+                        Buy Now
+                    </CheckoutButton>
+                </Checkout>
+            }
             <CartItems />
         </Wrapper>
     )
