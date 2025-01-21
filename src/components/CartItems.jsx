@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { CartContext } from "../App";
 import styled from "styled-components";
 import Item from "./Item";
+import EmptyCart from "./EmptyCart";
 
 const List = styled.ul`
     list-style: none;
@@ -23,7 +24,7 @@ const CartItems = () => {
                                 <Item product={product} />
                             </li>
                         )) :
-                        <div>Cart Is Empty</div>
+                        <EmptyCart />
                 }
             </List>
         </div>
