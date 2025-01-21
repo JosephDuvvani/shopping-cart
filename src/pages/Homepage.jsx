@@ -1,6 +1,7 @@
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import ImageSpread from "../components/ImageSpread";
+import { useEffect, useState } from "react";
 
 const slideRight = keyframes`
     0% {
@@ -12,7 +13,7 @@ const slideRight = keyframes`
 `;
 const slideDown = keyframes`
     0% {
-        top: -2.5em;
+        top: -50vh;
     }
     100% {
         top: 0;
@@ -48,9 +49,15 @@ const Title = styled.h1`
     overflow: hidden;
 `;
 const Text = styled.span`
-    position: relative;
-    left: -100%;
-    animation: ${slideRight} 500ms ease-out forwards;
+    &.initial {
+        position: relative;
+        left: -100%;
+    }
+    &.animate {
+        position: relative;
+        left: -100%;
+        animation: ${slideRight} 500ms ease-out forwards;
+    }
 `;
 const Subtitle = styled(Title)`
     display: block;
@@ -59,10 +66,16 @@ const Subtitle = styled(Title)`
     color: hsl(253, 80.40%, 60.00%);
     overflow: hidden;
 `;
-const SubText = styled.span`
-    position: relative;
-    top: -2.5em;
-    animation: ${slideDown} 500ms ease-out forwards 500ms;
+const SubText = styled.div`
+    &.initial {
+        position: relative;
+        top: -50vh;
+    }
+    &.animate {
+        position: relative;
+        top: -50vh;
+        animation: ${slideDown} 500ms ease-out forwards 500ms;
+    }
 `;
 const Buttons = styled.div`
     display: grid;
@@ -82,32 +95,66 @@ const ShopButton = styled(Link)`
     cursor: pointer;
     margin-top: 3em;
     display: inline-block;
-    position: absolute;
-    top: 100%;
-    animation: ${slideUp} 1s ease-in-out forwards 500ms;
-    transition: background 150ms ease-in-out;
 
+    &.initial {
+        position: relative;
+        top: 100%;
+    }
+    &.animate {
+        position: absolute;
+        top: 100%;
+        animation: ${slideUp} 1s ease-in-out forwards 500ms;
+        transition: background 150ms ease-in-out;
+    }
     &:hover {
-    background-color: hsl(207, 80.40%, 70.00%);
+        background-color: hsl(207, 80.40%, 70.00%);
     }
 `;
 
 const Homepage = () => {
+    const [animate, setAnimate] = useState(false);
+
+    useEffect(() => {
+        if (sessionStorage.getItem('firstMount') === null) {
+            setAnimate(true);
+            setTimeout(() =>
+                sessionStorage.setItem('firstMount', 1)
+            ,3000)
+        } else setAnimate(false); 
+          
+    }, []);
+
+    const getClass = () => {
+        if (sessionStorage.getItem('firstMount') === null) return "initial";
+        return "still";
+    }
+
     return (
         <Wrapper>
             <div>
                 <Title>
-                    <Text>Elevate Your Style</Text>                 
+                    <Text className={animate ? "animate" : getClass()}>
+                        Elevate Your Style
+                    </Text>                 
                 </Title>
                 <Subtitle>
-                    <SubText>Shop the Best in Tech, Fashion, and More.</SubText>
+                    <SubText
+                        className={animate ? "animate" : getClass()}
+                    >
+                        Shop the Best in Tech, Fashion, and More.                
+                    </SubText>
                 </Subtitle>
             </div>
             <div>
                 <ImageSpread />
             </div>
             <Buttons>
-                <ShopButton to='/products'>Go Shopping</ShopButton>
+                <ShopButton
+                    to='/products'
+                    className={animate ? "animate" : getClass()}
+                >
+                    Go Shopping
+                </ShopButton>
             </Buttons>
         </Wrapper>
     )

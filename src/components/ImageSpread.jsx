@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import painting from '../images/imageSpread/painting.jpeg';
+import { useEffect, useState } from 'react';
 
 const spread = (angle, shift, distance) => {
     return keyframes`
@@ -18,6 +19,14 @@ const spread = (angle, shift, distance) => {
             top: 0;
             transform: rotateZ(${angle}deg) translateY(${shift}%);
         }
+    `;
+};
+
+const still = (angle, shift, distance) => {
+    return `
+        left: ${distance};
+        top: 0;
+        transform: rotateZ(${angle}deg) translateY(${shift}%);
     `;
 };
 
@@ -43,27 +52,49 @@ const ImageFrame = styled.div`
     &:nth-child(2n) {
         background-color: purple;
     }
+    &.initial {top: 200%;}
 
     &:nth-child(1) {
-        animation: ${spread(-5, 5, '-180%')} 1.5s ease-out forwards;       
+        &.animate {
+            animation: ${spread(-5, 5, '-180%')} 1.5s ease-out forwards;
+        }
+        &.still {${still(-5, 5, '-180%')}}  
     }
     &:nth-child(2) {
-        animation: ${spread(-5, -10, '-120%')} 1.5s ease-out forwards;     
+        &.animate {
+            animation: ${spread(-5, -10, '-120%')} 1.5s ease-out forwards;
+        }
+        &.still {${still(-5, -10, '-120%')}} 
     }
     &:nth-child(3) {
-        animation: ${spread(-4, -1, '-60%')} 1.5s ease-out forwards;   
+        &.animate {
+            animation: ${spread(-4, -1, '-60%')} 1.5s ease-out forwards;
+        }
+        &.still {${still(-4, -1, '-60%')}}  
     }
     &:nth-child(4) {
-        animation: ${spread(0, 0, 0)} 1.5s ease-out forwards;   
+        &.animate {
+            animation: ${spread(0, 0, 0)} 1.5s ease-out forwards;
+        }
+        &.still {${still(0, 0, 0)}} 
     }
     &:nth-child(5) {
-        animation: ${spread(5, -1, '60%')} 1.5s ease-out forwards;   
+        &.animate {
+            animation: ${spread(5, -1, '60%')} 1.5s ease-out forwards;
+        }
+        &.still {${still(5, -1, '60%')}}
     }
     &:nth-child(6) {
-        animation: ${spread(5, 3, '120%')} 1.5s ease-out forwards;   
+        &.animate {
+            animation: ${spread(5, 3, '120%')} 1.5s ease-out forwards;
+        }
+        &.still {${still(5, 3, '120%')}}
     }
     &:nth-child(7) {
-        animation: ${spread(8, -2, '180%')} 1.5s ease-out forwards;  
+        &.animate {
+            animation: ${spread(8, -2, '180%')} 1.5s ease-out forwards;
+        }
+        &.still {${still(8, -2, '180%')}} 
     }
 `;
 const Image = styled.img`
@@ -71,28 +102,44 @@ const Image = styled.img`
 `;
 
 const ImageSpread = () => {
+    const [animate, setAnimate] = useState(false);
+    
+    useEffect(() => {
+        if (sessionStorage.getItem('firstMount') === null) {
+            setAnimate(true);
+            setTimeout(() =>
+                sessionStorage.setItem('firstMount', 1)
+            ,1000)
+        } else setAnimate(false);
+    }, []);
+
+    const getClass = () => {
+        if (sessionStorage.getItem('firstMount') === null) return "initial";
+        return "still";
+    }
+
     return (
         <Wrapper>
             <Images>
-                <ImageFrame>
+                <ImageFrame className={animate ? "animate" : getClass()}>
                     <Image src={painting} />
                 </ImageFrame>
-                <ImageFrame>
+                <ImageFrame className={animate ? "animate" : getClass()}>
                     
                 </ImageFrame>
-                <ImageFrame>
+                <ImageFrame className={animate ? "animate" : getClass()}>
                     <Image src={painting} />
                 </ImageFrame>
-                <ImageFrame>
+                <ImageFrame className={animate ? "animate" : getClass()}>
                     
                 </ImageFrame>
-                <ImageFrame>
+                <ImageFrame className={animate ? "animate" : getClass()}>
                     <Image src={painting} />
                 </ImageFrame>
-                <ImageFrame>
+                <ImageFrame className={animate ? "animate" : getClass()}>
                     
                 </ImageFrame>
-                <ImageFrame>
+                <ImageFrame className={animate ? "animate" : getClass()}>
                     <Image src={painting} />
                 </ImageFrame>       
             </Images>
