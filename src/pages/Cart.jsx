@@ -2,6 +2,7 @@ import styled from "styled-components";
 import CartItems from "../components/CartItems";
 import { useContext, useState } from "react";
 import { CartContext } from "../App";
+import CheckoutMessage from "../components/CheckoutMessage";
 
 const Wrapper = styled.div`
     max-width: 70rem;
@@ -45,8 +46,12 @@ const CheckoutButton = styled.button`
 
 const Cart = () => {
     const {cart, setCart} = useContext(CartContext);
+    const [checkout, setCheckout] = useState(false);
 
-    const handleCheckout = () => setCart([]);
+    const handleCheckout = () => {
+        setCart([]);
+        setCheckout(true);
+    }
     return (
         <Wrapper>
             <Title>Shopping Cart</Title>
@@ -68,7 +73,10 @@ const Cart = () => {
                     </CheckoutButton>
                 </Checkout>
             }
-            <CartItems />
+            {checkout ?
+                <CheckoutMessage /> :
+                <CartItems />
+            }
         </Wrapper>
     )
 }
