@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CartContext } from "../App";
-import { useContext } from "react";
+import { useContext} from "react";
 
 const List = styled.ul`
     display: grid;
@@ -67,17 +67,8 @@ const ProductCards = ({products}) => {
             setCart([{id: product.id, item: product, quantity: 1}]);
             return;
         }
-        let inCart = false;
-        const newCart = [...cart].map(prod => {
-            if (prod.id === product.id) {
-                const item = {...prod, quantity: (prod.quantity + 1)};
-                inCart = true;
-                return item;
-            }
-            return prod;
-        });     
+        let inCart = [...cart].filter(prod => prod.id === product.id).length > 0;     
         if (inCart) {
-            setCart(newCart);
             return;
         }
         setCart([...cart, {id: product.id, item: product, quantity: 1}]);
