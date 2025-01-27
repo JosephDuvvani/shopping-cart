@@ -25,6 +25,7 @@ const StyledNav = styled.nav`
     display: grid;
     grid-template-columns: min-content 1fr min-content;
     align-items: center;
+    gap: 2rem;
 `;
 
 const NavList = styled.ul`
@@ -34,7 +35,7 @@ const NavList = styled.ul`
     font-weight: 700;
     font-family: "Playfair Display", Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
-    justify-self: center;
+    justify-self: end;
     display: grid;
     grid-auto-columns: max-content;
     grid-auto-flow: column;
@@ -48,11 +49,19 @@ const StyledLink = styled(Link)`
     color: inherit;
     padding: .5em;
     display: block;
+    position: relative;
     transition: all 150ms ease-in-out;
 
-    &:hover {
-        transform: scale(1.3);
-        letter-spacing: 0;
+    &:hover::after {
+        content: "^";
+        font-size: 1.2rem;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -.5rem;
+        height: 0;
+        text-align: center;
+        background-color: red;
     }
 `;
 
@@ -115,6 +124,9 @@ const App = () => {
                             </Logo>
                         </div>
                         <NavList>
+                            <li>
+                                <StyledLink to="/">Home</StyledLink>
+                            </li>
                             <li>
                                 <StyledLink to="/products">Shop</StyledLink>
                             </li>
