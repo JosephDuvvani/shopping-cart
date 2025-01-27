@@ -4,7 +4,7 @@ import { useContext} from "react";
 
 const List = styled.ul`
     display: grid;
-    grid-template-columns: repeat(auto-fit, 16rem);
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     gap: 3rem 2rem;
     list-style: none;
     color: hsl(0, 0%, 30%);
@@ -14,26 +14,34 @@ const Card = styled.div`
     display: grid;
     grid-template-columns: 1fr min-content;
     align-items: center;
+    width: 16rem;
+    margin: auto;
 `;
 const ImageFrame = styled.div`
     display: grid;
-    place-content: center;
+    justify-items: center;
+    align-content: center;
     width: 16rem;
     height: 16rem;
     grid-column: 1/-1;
-    background-color: hsl(250, 70%, 90%);
+    background-color: hsl(0, 0%, 100%);
     border-radius: 1rem;
     overflow: hidden;
 `;
 const Image = styled.img`
-    width: 100%;
-    height: 100%;
+    height: 15rem;
+    width: 15rem;
+    object-fit: contain;
 `;
 const Name = styled.h2`
     font-size: 1.2em;
     font-weight: 700;
     grid-column: 1/-1;
     margin-block: 1rem .5rem;
+    width: 100%;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
 `;
 const Price = styled.div`
     font-weight: 700;
@@ -83,7 +91,8 @@ const ProductCards = ({products}) => {
                             <ImageFrame>
                                 <Image src={item.image} />
                             </ImageFrame>
-                            <Name>{item.name}</Name>
+                            {console.log(item.price)}
+                            <Name title={item.title}>{item.title}</Name>
                             <Price>${item.price}</Price>
                             <CartButton 
                                 title="Add to Cart"

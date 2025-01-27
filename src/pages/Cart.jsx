@@ -64,7 +64,7 @@ const Cart = () => {
                             ${
                                 [...cart].map(prod => 
                                     prod.item.price * prod.quantity
-                                ).reduce((total, price) => total + price)
+                                ).reduce((total, price) => total + price).toFixed(2)
                             }
                         </Cost>
                     </div>

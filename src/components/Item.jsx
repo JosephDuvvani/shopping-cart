@@ -18,13 +18,13 @@ const ImageFrame = styled.div`
     place-content: center;
     width: 10rem;
     height: 10rem;
-    background-color: hsl(250, 70%, 90%);
     overflow: hidden;
     grid-row: 1/4;
 `;
-const Image = styled.img`
-    width: 100%;
-    height: 100%;
+const Image = styled.img` 
+    height: 10rem;
+    width: 10rem;
+    object-fit: contain;
 `;
 const Name = styled.h3`
     margin-block: .5rem;
@@ -38,6 +38,7 @@ const Quantity = styled.div`
     --clr-font: hsl(250, 30%, 40%);
     grid-row: 1;
     grid-column: 3;
+    align-self: end;
     font-size: 1.2em;
     display: grid;
     grid-template-columns: 1.3em 2px 1.3em 2px 1.3em;
@@ -55,7 +56,6 @@ const MinusButton = styled.button`
     background-color: transparent;
     border: 0;
     cursor: pointer;
-
     &:hover svg {
     fill: hsl(30, 35%, 65%);
 `;
@@ -126,7 +126,7 @@ const Item = ({product}) => {
             <ImageFrame>
                 <Image src={product.item.image} />
             </ImageFrame>
-            <Name>{product.item.name}</Name>
+            <Name>{product.item.title}</Name>
             <Price>Price: ${product.item.price}</Price>
             <Quantity>
                 <MinusButton name="minus" onClick={handleQuantity}>

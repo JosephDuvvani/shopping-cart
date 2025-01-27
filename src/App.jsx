@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Outlet, Link } from "react-router-dom"
 import styled from "styled-components";
 
@@ -93,41 +93,14 @@ export const ProductContext = createContext(null);
 export const CartContext = createContext(null);
 
 const App = () => {
-    const [products, setProducts] = useState([
-        {
-            name: "Product Name",
-            id: 1,
-            image: "",
-            category: "electronic",
-            description: "About this product",
-            price: "700",
-        },
-        {
-            name: "Product Name",
-            id: 2,
-            image: "",
-            category: "electronic",
-            description: "About this product",
-            price: "700",
-        },
-        {
-            name: "Product Name",
-            id: 3,
-            image: "",
-            category: "electronic",
-            description: "About this product",
-            price: "700",
-        },
-        {
-            name: "Product Name",
-            id: 4,
-            image: "",
-            category: "electronic",
-            description: "About this product",
-            price: "700",
-        },
-    ]);
+    const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+
+    useEffect(() => {
+        fetch('https://fakestoreapi.com/products?limit=15')
+            .then(res => res.json())
+            .then(res => setProducts(res));
+    }, []);
 
     return (
         <>
