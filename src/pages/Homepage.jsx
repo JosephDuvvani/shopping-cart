@@ -45,6 +45,7 @@ const Title = styled.h1`
     font-size: 5em;
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     font-weight: 900;
+    color: hsl(49, 20%, 50%);
     margin: 0;
     overflow: hidden;
 `;
@@ -63,7 +64,7 @@ const Subtitle = styled(Title)`
     display: block;
     font-size: 3.5em;
     font-family: "Playfair Display", Arial, Helvetica, sans-serif;
-    color: hsl(253, 80.40%, 60.00%);
+    color: hsl(190, 20%, 50%);
     overflow: hidden;
 `;
 const SubText = styled.div`
@@ -84,13 +85,15 @@ const Buttons = styled.div`
     position: relative;
 `;
 const ShopButton = styled(Link)`
+    width: 40%;
+    text-align: center;
     text-decoration: none;
-    color: inherit;
-    font-size: 1.1em;
+    color: #fff;
+    font-size: 1.5em;
     font-weight: 500;
     font-family: "Roboto", Arial, Helvetica, sans-serif;
-    background-color: hsl(207, 80.40%, 80.00%);
-    padding: .7em 2em;
+    background-color: hsl(190, 20%, 50%);
+    padding: 1em 2em;
     border-radius: 50vh;
     cursor: pointer;
     margin-top: 3em;
@@ -98,6 +101,7 @@ const ShopButton = styled(Link)`
 
     &.initial {
         position: relative;
+        opacity: 0;
         top: 100%;
     }
     &.animate {
@@ -107,7 +111,8 @@ const ShopButton = styled(Link)`
         transition: background 150ms ease-in-out;
     }
     &:hover {
-        background-color: hsl(207, 80.40%, 70.00%);
+        background-color: hsl(190, 20%, 45%);
+        box-shadow: 0 0 1rem .2rem hsl(190, 0%, 80%);
     }
 `;
 
@@ -146,7 +151,7 @@ const Homepage = () => {
                 </Subtitle>
             </div>
             <div>
-                <ImageSpread />
+                <ImageSpread animate={animate} getClass={getClass} />
             </div>
             <Buttons>
                 <ShopButton

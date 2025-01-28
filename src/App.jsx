@@ -13,7 +13,7 @@ const HeaderMain = styled.div`
 const Header = styled.header`
     padding: 1rem 2rem;
     color: #fff;
-    background-color: hsl(290, 40%, 30%);
+    background-color: hsl(49, 20%, 50%);
 `;
 
 const Main = styled.main`
